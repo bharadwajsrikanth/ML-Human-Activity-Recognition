@@ -47,6 +47,20 @@ nnModelADAM = mlpADAM.fit(trainData, trainLabelE)
 
 nnModelLBFGS = mlpLBFGS.fit(trainData, trainLabelE)
 
+train_df = train.drop("subject", axis=1)
+test_df = test.drop("subject", axis=1)
+
+def get_all_data():
+    train_values = train_df.values
+    test_values = test_df.values
+    np.random.shuffle(train_values)
+    np.random.shuffle(test_values)
+    X_train = train_values[:, :-1]
+    X_test = test_values[:, :-1]
+    y_train = train_values[:, -1]
+    y_test = test_values[:, -1]
+    return X_train, X_test, y_train, y_test
+
 
 
 
