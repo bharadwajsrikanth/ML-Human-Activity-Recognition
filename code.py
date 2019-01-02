@@ -5,6 +5,13 @@ from sklearn import preprocessing
 import sklearn.neural_network as nn
 from sklearn.linear_model import LogisticRegression
 from sklearn.decomposition import PCA
+from sklearn.metrics import accuracy_score
+from sklearn.preprocessing import StandardScaler
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.neighbors import KNeighborsClassifier
+
+scaler = StandardScaler()
+
 
 def get_all_data():
     train_values = train_df.values
@@ -82,4 +89,21 @@ X_train = pca.transform(X_train)
 X_test = pca.transform(X_test)
 model.fit(X_train, y_train)
 score = model.score(X_test, y_test)
+print(score)
+
+# Applying Random forest classifier
+X_train, X_test, y_train, y_test = get_all_data()
+scaler.fit(X_train)
+X_train = scaler.transform(X_train)
+X_test = scaler.transform(X_test)
+model = RandomForestClassifier(n_estimators=500)
+model.fit(X_train, y_train)
+score = model.score(X_test, y_test)
+print(score)
+
+# Applying K nearest neighbours
+model = KNeighborsClassifier(n_neighbors=24)
+model.fit(trainData, trainLabelE)
+y_te_pred = model.predict(testData)
+score = accuracy_score(testLabelE, y_te_pred)
 print(score)
